@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .payment-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .payment-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .payment-buttons button {
+      background-color: #f06292;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      flex: 1 1 30%;
+      min-width: 100px;
+    }
+
+    .payment-buttons button:hover {
+      background-color: #e91e63;
+    }
+
+    #qr-code {
+      margin-top: 20px;
+      display: none;
+    }
+
+    #qr-code img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 10px;
+    }
+
+    .success-message {
+      margin-top: 20px;
+      color: #4caf50;
+      font-size: 22px;
+      display: none;
+    }
+
+    .success-message span {
+      font-size: 32px;
+    }
+
+    .payment-status {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #f06292;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 500px) {
+      .payment-container {
+        padding: 20px;
+      }
+
+      .payment-buttons button {
+        font-size: 14px;
+        padding: 8px 15px;
+        min-width: 90px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .success-message {
+        font-size: 20px;
+      }
+
+      .success-message span {
+        font-size: 28px;
+      }
+
+      .payment-status {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-container">
+    <h2>Complete Your Payment</h2>
+    <p>Select your preferred payment method:</p>
+
+    <div class="payment-buttons">
+      <button onclick="startPayment('upi')">UPI</button>
+      <button onclick="startPayment('gpay')">Google Pay</button>
+      <button onclick="startPayment('phonepe')">PhonePe</button>
+    </div>
+
+    <div id="qr-code">
+      <p>Scan the QR Code to pay:</p>
+      <img src="WhatsApp Image 2025-03-24 at 13.21.10_a4d7133c.jpg" alt="QR Code for Payment">
+    </div>
+
+    <div class="loader" id="loader"></div>
+
+    <div id="success-message" class="success-message">
+      <span>✔</span> Payment Successful!
+    </div>
+
+    <div class="payment-status" id="payment-status">
+      <!-- Payment status message will appear here -->
+    </div>
+  </div>
+
+  <script>
+    function startPayment(method) {
+      document.getElementById("qr-code").style.display = "block";
+      document.getElementById("payment-status").innerText = "Scan the QR code to proceed...";
+
+      setTimeout(function () {
+        document.getElementById("qr-code").style.display = "none";
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("payment-status").innerText = "Processing your payment...";
+
+        setTimeout(function () {
+          document.getElementById("loader").style.display = "none";
+          completePayment();
+        }, 3000);
+      }, 3000);
+    }
+
+    function completePayment() {
+      document.getElementById("success-message").style.display = "block";
+      document.getElementById("payment-status").innerText = "Payment completed successfully!";
+      setTimeout(function () {
+        alert("Thank you for your payment!");
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>

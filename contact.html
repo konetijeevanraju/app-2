@@ -1,0 +1,119 @@
+<!-- Contact Section -->
+<div class="contact-section">
+  <h2>Contact Us</h2>
+  <p>Get in touch with us for any queries or reservations. We're here to help!</p>
+
+  <div class="contact-details">
+    <div class="contact-info">
+      <h3>Our Contact Information</h3>
+      <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+      <p><strong>Email:</strong> jeevankoneti646@gmail.com</p>
+      <p><strong>Address:</strong> 123 Main Street, Chennai, Tamil Nadu, ZIP Code</p>
+      <div class="social-media">
+        <h3>Follow Us</h3>
+        <a href="https://facebook.com" target="_blank">Facebook</a> |
+        <a href="https://twitter.com" target="_blank">Twitter</a> |
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="tel" placeholder="Your Phone Number (optional)">
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Section Styles -->
+<style>
+  .contact-section {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+
+  .contact-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  .contact-details {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 30px auto 0;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .contact-info,
+  .contact-form {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .contact-form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .contact-form button:hover {
+    background-color: #0056b3;
+  }
+
+  .social-media a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 5px;
+  }
+
+  .social-media a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive for tablets & phones */
+  @media (max-width: 768px) {
+    .contact-details {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-info,
+    .contact-form {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-section h2 {
+      font-size: 1.5em;
+    }
+
+    .contact-form button {
+      font-size: 1em;
+      padding: 10px;
+    }
+  }
+</style>

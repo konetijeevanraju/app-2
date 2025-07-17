@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Menu</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .food-menu {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      flex: 1;
+      margin-right: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .food-menu h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .food-menu ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .food-menu ul li {
+      background-color: #f06292;
+      color: white;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      text-align: center;
+      width: 200px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .food-menu ul li img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .food-menu ul li button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: white;
+      color: #f06292;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart h3 {
+      margin-top: 0;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f06292;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 10px;
+      }
+
+      .food-menu {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+
+      .food-menu ul li {
+        width: 100%;
+      }
+
+      .cart {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Food Menu Section -->
+    <div class="food-menu">
+      <h2>Our Food Menu</h2>
+      <ul>
+        <li>
+          <img src="breakfast.jpg" alt="Breakfast Buffet">
+          <h3>Breakfast Buffet</h3>
+          <p>Fresh Fruits, Eggs, Pancakes</p>
+          <button onclick="addToCart('Breakfast Buffet', 500)">Add to Cart</button>
+        </li>
+        <li>
+          <img src="seafood.webp" alt="Seafood Platter">
+          <h3>Seafood Platter</h3>
+          <p>Crab, Lobster, Prawns</p>
+          <button onclick="addToCart('Seafood Platter', 1200)">Add to Cart</button>
+        </li>
+        <li>
+          <img src="veg.jpg" alt="Vegetarian Delight">
+          <h3>Vegetarian Delight</h3>
+          <p>Veggies, Salads, Pasta</p>
+          <button onclick="addToCart('Vegetarian Delight', 800)">Add to Cart</button>
+        </li>
+        <li>
+          <img src="burger.jpg" alt="Signature Burger">
+          <h3>Signature Burger</h3>
+          <p>Beef, Cheese, Lettuce</p>
+          <button onclick="addToCart('Signature Burger', 300)">Add to Cart</button>
+        </li>
+        <li>
+          <img src="juice.jpeg" alt="Exotic Drinks">
+          <h3>Exotic Drinks</h3>
+          <p>Cocktails, Juices</p>
+          <button onclick="addToCart('Exotic Drinks', 200)">Add to Cart</button>
+        </li>
+        <li>
+          <img src="pizza and burger.webp" alt="Pizzeria Royale">
+          <h3>Pizzeria Royale</h3>
+          <p>Pizza, Burger, Bistro</p>
+          <button onclick="addToCart('Pizzeria Royale', 400)">Add to Cart</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart">
+      <h3>Your Cart</h3>
+      <ul id="cart-items"></ul>
+      <p>Total: ₹<span id="cart-total">0</span></p>
+      <button onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(itemName, price) {
+      cart.push({ name: itemName, price: price });
+      total += price;
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      cartItems.innerHTML = '';
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ₹${item.price}`;
+        cartItems.appendChild(li);
+      });
+      cartTotal.textContent = total;
+    }
+
+    function checkout() {
+      alert(`Thank you for your purchase! Total: ₹${total}`);
+      cart = [];
+      total = 0;
+      updateCart();
+    }
+  </script>
+
+</body>
+</html>

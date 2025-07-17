@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Booking</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-image: url('hotel.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Header and Nav */
+    header {
+      background-color: black;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: gold;
+      padding: 5px 15px;
+      border: 2px solid white;
+      border-radius: 5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      transition: background-color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: #f06292;
+      border-radius: 5px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      nav ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: black;
+        flex-direction: column;
+        width: 200px;
+        display: none;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 10px 0;
+        text-align: right;
+        padding-right: 20px;
+      }
+    }
+
+    /* Main Content */
+    .main-content {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('hotelbg.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+    }
+
+    .booking-form {
+      background-color: white;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .booking-form h2 {
+      text-align: center;
+    }
+
+    .booking-form label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .booking-form button {
+      background-color: #f06292;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      margin-top: 15px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Chatbot */
+    #chatbot-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    #chatbox {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
+
+    #chatbox div:first-child {
+      background: #f06292;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px 10px 0 0;
+    }
+
+    #chat-content {
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+    }
+
+    #chat-input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+
+    /* Map */
+    .map-container {
+      text-align: center;
+      margin: 50px 20px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 350px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">Grand Hotel</div>
+    <nav>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul id="nav-list">
+        <li><a href="#">Home</a></li>
+        <li><a href="food.html">Menu</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="faci.html">Facilities</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Booking Form -->
+  <div class="main-content">
+    <div class="booking-form">
+      <h2>Book Your Hotel</h2>
+      <label>Name:</label>
+      <input type="text" id="name" required>
+      <label>Phone Number:</label>
+      <input type="text" id="phone" required>
+      <label>Email:</label>
+      <input type="email" id="email" required>
+      <label>Check-in:</label>
+      <input type="date" id="checkin" required>
+      <label>Check-out:</label>
+      <input type="date" id="checkout" required>
+      <label>Guests:</label>
+      <select id="guests">
+        <option>1 Adult</option>
+        <option>2 Adults + 3 Children</option>
+        <option>3 Adults + 2 Children</option>
+        <option>2 Adults + 2 Children</option>
+      </select>
+      <label>Room Type:</label>
+      <select id="rooms">
+        <option>Deluxe Room - ₹5,000/night</option>
+        <option>Suite Room - ₹9,000/night</option>
+        <option>Single Room - ₹2,000/night</option>
+        <option>Beach View - ₹2,000/night</option>
+      </select>
+      <label>Food Preferences:</label>
+      <textarea id="food"></textarea>
+      <button onclick="sendEmail()">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+  <button id="chatbot-btn" onclick="toggleChatbot()">💬</button>
+  <div id="chatbox">
+    <div onclick="toggleChatbot()">AI Chat</div>
+    <div id="chat-content"></div>
+    <input type="text" id="chat-input" placeholder="Type your message..." onkeypress="handleChat(event)">
+  </div>
+
+  <!-- Map -->
+  <div class="map-container">
+    <h2>Find Your Live Location</h2>
+    <p>Your current location will be displayed on the map.</p>
+    <iframe id="live-map" loading="lazy"></iframe>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    function toggleMenu() {
+      const navList = document.getElementById("nav-list");
+      navList.classList.toggle("active");
+    }
+
+    function toggleChatbot() {
+      const chatbox = document.getElementById("chatbox");
+      chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+    }
+
+    function handleChat(event) {
+      if (event.key === "Enter") {
+        const input = document.getElementById("chat-input");
+        const message = input.value.trim();
+        if (message) {
+          displayMessage("You: " + message, "user");
+          input.value = "";
+          setTimeout(() => aiResponse(message), 1000);
+        }
+      }
+    }
+
+    function displayMessage(text, sender) {
+      const chatContent = document.getElementById("chat-content");
+      const div = document.createElement("div");
+      div.textContent = text;
+      div.style.padding = "5px";
+      div.style.margin = "5px 0";
+      div.style.background = sender === "user" ? "#eee" : "#f06292";
+      div.style.color = sender === "user" ? "black" : "white";
+      div.style.borderRadius = "5px";
+      div.style.textAlign = sender === "user" ? "right" : "left";
+      chatContent.appendChild(div);
+      chatContent.scrollTop = chatContent.scrollHeight;
+    }
+
+    function aiResponse(message) {
+      let response = "I'm here to assist you!";
+      if (message.toLowerCase().includes("book")) response = "Please provide your check-in and check-out dates.";
+      else if (message.toLowerCase().includes("menu")) response = "Our menu includes Indian, Chinese, and Continental.";
+      else if (message.toLowerCase().includes("room")) response = "We offer Deluxe, Suite, and Beach View rooms.";
+      displayMessage("AI: " + response, "ai");
+    }
+
+    (function () {
+      emailjs.init("6-iY3gzwBUDG4-UHf");
+    })();
+
+    function sendEmail() {
+      const bookingData = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        checkin: document.getElementById("checkin").value,
+        checkout: document.getElementById("checkout").value,
+        guests: document.getElementById("guests").value,
+        rooms: document.getElementById("rooms").value,
+        food: document.getElementById("food").value
+      };
+
+      emailjs.send("service_ko8kqvp", "template_9f7n69w", bookingData)
+        .then(() => {
+          alert("Booking details sent successfully!");
+          window.location.href = "payment.html";
+        })
+        .catch(() => {
+          alert("Failed to send booking details.");
+        });
+    }
+
+    function showLiveLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const { latitude, longitude } = position.coords;
+          const src = `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
+          document.getElementById("live-map").src = src;
+        }, () => {
+          alert("Location permission denied.");
+        });
+      } else {
+        alert("Geolocation not supported.");
+      }
+    }
+
+    window.onload = showLiveLocation;
+  </script>
+</body>
+</html>
